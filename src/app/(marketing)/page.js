@@ -181,7 +181,7 @@ export default async function HomePage() {
                 <Link href={settings.ctaPrimaryUrl} className="btn-primary bg-[color:var(--theme-surface)] text-[color:var(--theme-primary-dark)]">
                   {settings.ctaPrimaryText}
                 </Link>
-                <Link href={settings.ctaSecondaryUrl} className="btn-outline border-white text-white">
+                <Link href={settings.ctaSecondaryUrl} className="btn-outline border-white">
                   {settings.ctaSecondaryText}
                 </Link>
               </div>

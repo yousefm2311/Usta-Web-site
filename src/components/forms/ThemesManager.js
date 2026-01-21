@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { applyTheme } from "@/components/ThemeApplier";
+import { applyTheme } from "@/lib/themeClient";
 
 const emptyTheme = {
   name: "",
@@ -95,8 +95,8 @@ const presetThemes = [
       accent: "#22d3ee",
       background: "#0f172a",
       surface: "#111827",
-      text: "#f8fafc",
-      muted: "#cbd5f5",
+      text: "#e2e8f0",
+      muted: "#94a3b8",
       border: "#1f2937",
       gradientFrom: "#0b1120",
       gradientTo: "#111827",

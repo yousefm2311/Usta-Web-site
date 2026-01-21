@@ -15,8 +15,8 @@ export default function ContactPage() {
             يسعدنا الرد على استفساراتك. اترك رسالتك وسنعود إليك في أسرع وقت.
           </p>
           <div className="mt-6 space-y-3 text-sm text-slate-600">
-            <p>البريد الإلكتروني: hello@usta.com</p>
-            <p>الهاتف: +966 555 000 000</p>
+            <p>البريد الإلكتروني: usta.contact.site@gmail.com</p>
+            {/* <p>الهاتف: +966 555 000 000</p> */}
             <p>تابعنا عبر شبكات التواصل الاجتماعي من أسفل الصفحة.</p>
           </div>
         </div>

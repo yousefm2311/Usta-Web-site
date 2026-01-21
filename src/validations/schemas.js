@@ -11,6 +11,7 @@ export const statsSchema = z.object({
 });
 
 export const siteSettingsSchema = z.object({
+  key: z.string().optional(),
   heroTitle: z.string().min(1),
   heroSubtitle: z.string().min(1),
   ctaPrimaryText: z.string().min(1),

@@ -10,6 +10,7 @@ const StatsSchema = new mongoose.Schema(
 
 const SiteSettingsSchema = new mongoose.Schema(
   {
+    key: { type: String, default: "default", index: true },
     heroTitle: { type: String, default: "اطلب أفضل الحرفيين في دقائق" },
     heroSubtitle: { type: String, default: "Usta منصة تربطك بحرفيين موثوقين لإنجاز أي مهمة بسرعة." },
     ctaPrimaryText: { type: String, default: "حمّل التطبيق" },

@@ -1,13 +1,15 @@
 import "./globals.css";
 import { Cairo } from "next/font/google";
-import { getActiveTheme } from "@/services/themeService";
 import ThemeApplier from "@/components/ThemeApplier";
+import { getThemeMode, normalizeThemeTokens } from "@/lib/themeMode";
+import { getActiveTheme } from "@/services/themeService";
 
 const cairo = Cairo({
   subsets: ["arabic"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-cairo"
 });
+
 
 export const metadata = {
   title: {
@@ -27,7 +29,7 @@ export const dynamic = "force-dynamic";
 
 export default async function RootLayout({ children }) {
   const theme = await getActiveTheme();
-  const tokens = theme?.tokens || {};
+  const tokens = normalizeThemeTokens(theme?.tokens || {});
   const themeStyle = {
     "--theme-primary": tokens.primary || "#3b82f6",
     "--theme-primary-light": tokens.primaryLight || "#dbeafe",
@@ -45,8 +47,8 @@ export default async function RootLayout({ children }) {
     "--theme-font": tokens.fontFamily || "var(--font-cairo)"
   };
   return (
-    <html lang="ar" dir="rtl" className={cairo.variable} style={themeStyle}>
-      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
+    <html lang="ar" dir="rtl" className={cairo.variable} style={themeStyle} data-theme-mode={getThemeMode(tokens)}>
+      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased" suppressHydrationWarning>
         <ThemeApplier />
         {children}
       </body>

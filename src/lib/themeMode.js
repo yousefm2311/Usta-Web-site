@@ -45,6 +45,12 @@ const isBrightColor = (value, threshold = 0.9) => {
   return luminance > threshold;
 };
 
+const ensureMinLuminance = (value, min, fallback) => {
+  const luminance = getLuminance(value);
+  if (luminance === null || luminance < min) return fallback;
+  return value;
+};
+
 const getThemeMode = (tokens) => {
   const surface = tokens?.surface || tokens?.background || "#ffffff";
   return isDarkColor(surface) ? "dark" : "light";
@@ -57,12 +63,16 @@ const normalizeThemeTokens = (tokens = {}) => {
     return nextTokens;
   }
 
-  if (!tokens.text || isBrightColor(tokens.text, 0.9)) {
-    nextTokens.text = "#e2e8f0";
+  nextTokens.background = tokens.background || surface;
+  nextTokens.surface = tokens.surface || surface;
+  nextTokens.text = ensureMinLuminance(tokens.text, 0.72, "#e2e8f0");
+  nextTokens.muted = ensureMinLuminance(tokens.muted, 0.55, "#94a3b8");
+  nextTokens.border = ensureMinLuminance(tokens.border, 0.22, "#1f2937");
+  if (!parseHexColor(tokens.gradientFrom)) {
+    nextTokens.gradientFrom = surface;
   }
-
-  if (!tokens.muted || isBrightColor(tokens.muted, 0.75)) {
-    nextTokens.muted = "#94a3b8";
+  if (!parseHexColor(tokens.gradientTo)) {
+    nextTokens.gradientTo = surface;
   }
 
   return nextTokens;

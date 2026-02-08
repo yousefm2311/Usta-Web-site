@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -35,31 +35,60 @@ export default function BlogList() {
 
   return (
     <div>
-      <form onSubmit={handleSearch} className="mb-6 flex flex-col gap-3 md:flex-row md:items-center">
-        <input name="search" defaultValue={search} className="input" placeholder="ابحث عن تدوينة" />
+      <form onSubmit={handleSearch} className="card mb-6 flex flex-col gap-4 md:flex-row md:items-end">
+        <div className="flex-1">
+          <label className="label" htmlFor="search">ابحث داخل المدونة</label>
+          <input
+            id="search"
+            name="search"
+            defaultValue={search}
+            className="input mt-2"
+            placeholder="ابحث عن تدوينة أو موضوع"
+          />
+        </div>
         <button type="submit" className="btn-primary">بحث</button>
       </form>
 
+      <div className="mb-4 flex items-center justify-between text-xs text-slate-500">
+        <span>عدد النتائج: {total}</span>
+        <span>الصفحة {page} من {totalPages}</span>
+      </div>
+
       {loading ? (
-        <p className="text-sm text-slate-500">جارٍ تحميل المقالات...</p>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="card animate-pulse-soft">
+              <div className="h-40 rounded-2xl bg-blue-50" />
+              <div className="mt-4 h-3 w-24 rounded-full bg-blue-50" />
+              <div className="mt-3 h-4 w-3/4 rounded-full bg-blue-50" />
+              <div className="mt-2 h-3 w-full rounded-full bg-blue-50" />
+            </div>
+          ))}
+        </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {items.map((post) => (
             <BlogCard key={post._id} post={post} />
           ))}
+          {!items.length && (
+            <div className="card">
+              <p className="text-sm text-slate-600">لا توجد نتائج مطابقة، جرّب كلمة بحث أخرى.</p>
+            </div>
+          )}
         </div>
       )}
 
-      <div className="mt-8 flex flex-wrap gap-3">
+      <div className="mt-8 flex flex-wrap items-center gap-3">
         <button
+          type="button"
           className="btn-outline"
           disabled={page <= 1}
           onClick={() => router.push(`/blog?search=${encodeURIComponent(search)}&page=${page - 1}`)}
         >
           السابق
         </button>
-        <span className="text-sm text-slate-600">{page} / {totalPages}</span>
         <button
+          type="button"
           className="btn-outline"
           disabled={page >= totalPages}
           onClick={() => router.push(`/blog?search=${encodeURIComponent(search)}&page=${page + 1}`)}

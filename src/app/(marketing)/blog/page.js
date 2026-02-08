@@ -1,20 +1,31 @@
-import BlogList from "@/components/BlogList";
+﻿import BlogList from "@/components/BlogList";
+import { getSiteSettings } from "@/services/siteSettingsService";
 
 export const metadata = {
   title: "المدونة",
-  description: "آخر المقالات والنصائح من فريق Usta." 
+  description: "أحدث المقالات والنصائح من فريق Usta." 
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const settings = await getSiteSettings();
+
   return (
-    <div className="section-padding">
-      <div className="container-page">
-        <h1 className="text-3xl font-semibold text-slate-900">المدونة</h1>
-        <p className="mt-3 text-slate-600">تابع أحدث النصائح والمقالات.</p>
-        <div className="mt-8">
+    <div>
+      <section className="section-padding">
+        <div className="container-page">
+          <p className="section-kicker">{settings.blogKicker}</p>
+          <h1 className="mt-3 text-4xl font-semibold text-slate-900 md:text-5xl">{settings.blogTitle}</h1>
+          <p className="mt-4 text-lg text-slate-600">{settings.blogSubtitle}</p>
+        </div>
+      </section>
+
+      <section className="section-padding section-surface">
+        <div className="container-page">
           <BlogList />
         </div>
-      </div>
+      </section>
     </div>
   );
 }
+
+

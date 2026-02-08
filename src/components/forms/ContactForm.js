@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -33,7 +33,12 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-3xl border border-blue-100 bg-[color:var(--theme-surface)] p-6 shadow-sm">
+    <form onSubmit={handleSubmit} className="card card-luxe space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h2 className="text-lg font-semibold text-slate-900">أرسل رسالة</h2>
+        <span className="chip">رد خلال 24 ساعة</span>
+      </div>
+
       <div>
         <label className="label" htmlFor="name">الاسم</label>
         <input id="name" name="name" className="input mt-2" required />
@@ -48,11 +53,11 @@ export default function ContactForm() {
       </div>
       <div>
         <label className="label" htmlFor="message">رسالتك</label>
-        <textarea id="message" name="message" rows="5" className="input mt-2" required></textarea>
+        <textarea id="message" name="message" rows="5" className="input mt-2" required />
       </div>
 
       {status && (
-        <p className={`text-sm ${status.type === "success" ? "text-green-600" : "text-red-600"}`}>
+        <p className={`text-sm ${status.type === "success" ? "text-emerald-600" : "text-rose-600"}`}>
           {status.message}
         </p>
       )}

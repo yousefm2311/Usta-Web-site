@@ -10,7 +10,6 @@ const cairo = Cairo({
   variable: "--font-cairo"
 });
 
-
 export const metadata = {
   title: {
     default: "Usta | منصة الحرفيين",
@@ -31,24 +30,34 @@ export default async function RootLayout({ children }) {
   const theme = await getActiveTheme();
   const tokens = normalizeThemeTokens(theme?.tokens || {});
   const themeStyle = {
-    "--theme-primary": tokens.primary || "#3b82f6",
-    "--theme-primary-light": tokens.primaryLight || "#dbeafe",
-    "--theme-primary-dark": tokens.primaryDark || "#1d4ed8",
-    "--theme-accent": tokens.accent || "#38bdf8",
-    "--theme-background": tokens.background || "#f8fafc",
-    "--theme-surface": tokens.surface || "#ffffff",
-    "--theme-text": tokens.text || "#0f172a",
-    "--theme-muted": tokens.muted || "#64748b",
-    "--theme-border": tokens.border || "#e2e8f0",
-    "--theme-gradient-from": tokens.gradientFrom || "#eff6ff",
-    "--theme-gradient-to": tokens.gradientTo || "#f8fafc",
-    "--theme-radius": tokens.radius || "24px",
-    "--theme-ring": tokens.ring || "rgba(59, 130, 246, 0.25)",
-    "--theme-font": tokens.fontFamily || "var(--font-cairo)"
+    "--theme-primary": tokens.primary || "#0b3b39",
+    "--theme-primary-light": tokens.primaryLight || "#d6eee9",
+    "--theme-primary-dark": tokens.primaryDark || "#062b29",
+    "--theme-accent": tokens.accent || "#d6a657",
+    "--theme-background": tokens.background || "#f7f3ee",
+    "--theme-surface": tokens.surface || "#fcfbf9",
+    "--theme-text": tokens.text || "#1c1b1a",
+    "--theme-muted": tokens.muted || "#6f6a63",
+    "--theme-border": tokens.border || "#e5ddd1",
+    "--theme-gradient-from": tokens.gradientFrom || "#f6efe7",
+    "--theme-gradient-to": tokens.gradientTo || "#f9f6f2",
+    "--theme-radius": tokens.radius || "22px",
+    "--theme-ring": tokens.ring || "rgba(11, 59, 57, 0.22)",
+    "--theme-font": tokens.fontFamily || "var(--font-plex)"
   };
   return (
-    <html lang="ar" dir="rtl" className={cairo.variable} style={themeStyle} data-theme-mode={getThemeMode(tokens)}>
-      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased" suppressHydrationWarning>
+    <html
+      lang="ar"
+      dir="rtl"
+      className={`${cairo.variable}`}
+      style={{
+        ...themeStyle,
+        "--theme-font": tokens.fontFamily || "var(--font-cairo)",
+        "--theme-font-display": tokens.fontDisplay || "var(--font-cairo)"
+      }}
+      data-theme-mode={getThemeMode(tokens)}
+    >
+      <body className="min-h-screen antialiased" suppressHydrationWarning>
         <ThemeApplier />
         {children}
       </body>

@@ -51,6 +51,12 @@ const ensureMinLuminance = (value, min, fallback) => {
   return value;
 };
 
+const ensureMaxLuminance = (value, max, fallback) => {
+  const luminance = getLuminance(value);
+  if (luminance === null || luminance > max) return fallback;
+  return value;
+};
+
 const getThemeMode = (tokens) => {
   const surface = tokens?.surface || tokens?.background || "#ffffff";
   return isDarkColor(surface) ? "dark" : "light";
@@ -63,16 +69,39 @@ const normalizeThemeTokens = (tokens = {}) => {
     return nextTokens;
   }
 
-  nextTokens.background = tokens.background || surface;
-  nextTokens.surface = tokens.surface || surface;
-  nextTokens.text = ensureMinLuminance(tokens.text, 0.72, "#e2e8f0");
-  nextTokens.muted = ensureMinLuminance(tokens.muted, 0.55, "#94a3b8");
-  nextTokens.border = ensureMinLuminance(tokens.border, 0.22, "#1f2937");
+  const baseBackground = tokens.background || surface;
+  const baseSurface = tokens.surface || surface;
+
+  nextTokens.background = ensureMaxLuminance(
+    ensureMinLuminance(baseBackground, 0.05, "#0f172a"),
+    0.22,
+    "#111827"
+  );
+  nextTokens.surface = ensureMaxLuminance(
+    ensureMinLuminance(baseSurface, 0.07, "#111827"),
+    0.26,
+    "#1f2937"
+  );
+  nextTokens.text = ensureMaxLuminance(
+    ensureMinLuminance(tokens.text, 0.6, "#cbd5e1"),
+    0.82,
+    "#d5dbe5"
+  );
+  nextTokens.muted = ensureMaxLuminance(
+    ensureMinLuminance(tokens.muted, 0.45, "#9aa5b5"),
+    0.7,
+    "#a7b1bf"
+  );
+  nextTokens.border = ensureMaxLuminance(
+    ensureMinLuminance(tokens.border, 0.12, "#243041"),
+    0.35,
+    "#2b3648"
+  );
   if (!parseHexColor(tokens.gradientFrom)) {
-    nextTokens.gradientFrom = surface;
+    nextTokens.gradientFrom = nextTokens.background;
   }
   if (!parseHexColor(tokens.gradientTo)) {
-    nextTokens.gradientTo = surface;
+    nextTokens.gradientTo = nextTokens.surface;
   }
 
   return nextTokens;

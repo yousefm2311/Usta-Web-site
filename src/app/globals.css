@@ -384,10 +384,10 @@
 }
 
 :root[data-theme-mode="dark"] {
-  --hero-grid-line: rgba(255, 255, 255, 0.06);
+  --hero-grid-line: rgba(255, 255, 255, 0.04);
   --theme-mix-base: var(--theme-surface);
-  --page-glow-1: color-mix(in srgb, var(--theme-primary) 25%, transparent);
-  --page-glow-2: color-mix(in srgb, var(--theme-accent) 20%, transparent);
+  --page-glow-1: color-mix(in srgb, var(--theme-primary) 14%, transparent);
+  --page-glow-2: color-mix(in srgb, var(--theme-accent) 10%, transparent);
   color-scheme: dark;
 }
 
